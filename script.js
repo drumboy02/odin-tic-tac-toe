@@ -1,12 +1,23 @@
+const main = document.querySelector('main');
+
 // Store gameboard array in object
 const createBoard = (() => {
     // Initialize private variables
     const board = [];
-    for (i = 0; i < 9; i++) board.push(null);
     // Define methods
+    const initBoard = () => {
+        for (let i = 0; i < 9; i++) board.push(null);
+    }
     const getBoard = () => board;
+    const markSquare = (square, mark) => {
+        board[square] = mark;
+    }
+    // Initialize gameboard
+    initBoard();
+    // TEMP method to log to console
+    const log = () => console.log(board);
     // Return methods
-    return { getBoard };
+    return { log, initBoard, getBoard, markSquare };
 })()
 
 // Store players in objects
@@ -24,6 +35,13 @@ const createPlayer = (playerName, playerMark) => {
     return { getName, getScore, incScore, makeMark };
 }
 
+// Initialize game
 const player1 = createPlayer('Brett1', 'X');
 const player2 = createPlayer('Brett2', 'O');
 const gameboard = createBoard;
+// gameboard.initBoard();
+
+const div = main.appendChild(document.createElement('div'));
+div.innerText = gameboard.getBoard();
+gameboard.markSquare(3, player1.makeMark());
+div.innerText = gameboard.getBoard();

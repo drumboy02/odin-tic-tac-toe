@@ -39,9 +39,43 @@ const createPlayer = (playerName, playerMark) => {
 const player1 = createPlayer('Brett1', 'X');
 const player2 = createPlayer('Brett2', 'O');
 const gameboard = createBoard;
-// gameboard.initBoard();
 
-const div = main.appendChild(document.createElement('div'));
-div.innerText = gameboard.getBoard();
-gameboard.markSquare(3, player1.makeMark());
-div.innerText = gameboard.getBoard();
+// console.log(`player1: ${Object.keys(player1)}`)
+// console.log(`player2: ${Object.keys(player2)}`)
+// console.log(`gameboard: ${Object.keys(gameboard)}`)
+
+
+
+// fill the board with marks
+for (let i = 0, len = gameboard.getBoard().length; i < len; i++) {
+    if (!(i % 2)) {
+        gameboard.markSquare(i, player1.makeMark());
+    } else {
+        gameboard.markSquare(i, player2.makeMark());
+    }
+    gameboard.markSquare(0, player2.makeMark())
+}
+
+let test = gameboard.getBoard();
+if (test[0] === test[1] && test[1] === test[2]) {
+    // test rows
+    console.log('win 1-3');
+} else if (test[3] === test[4] && test[4] === test[5]) {
+    console.log('win 4-6');
+} else if (test[6] === test[7] && test[7] === test[8]) {
+    console.log('win 7-9');
+} else if (test[0] === test[3] && test[3] === test[6]) {
+    // test columns
+    console.log('win 1,4,7');
+} else if (test[1] === test[4] && test[4] === test[7]) {
+    console.log('win 2,5,8');
+} else if (test[2] === test[5] && test[5] === test[8]) {
+    console.log('win 3,6,9');
+} else if (test[0] === test[4] && test[4] === test[8]) {
+    // test diagonals
+    console.log('win 1,5,9');
+} else if (test[2] === test[4] && test[4] === test[6]) {
+    console.log('win 3,5,7');
+}
+
+gameboard.log()

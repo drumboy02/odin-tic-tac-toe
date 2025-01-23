@@ -67,6 +67,32 @@ const playGame = () => {
         }
     }
     const getRound = () => round;
+    const checkWin = () => {
+        let test = gameboard.getBoard();
+
+        if (test[0] !== null && test[0] === test[1] && test[1] === test[2]) {
+            // test rows
+            console.log('win 1-3');
+        } else if (test[3] !== null && test[3] === test[4] && test[4] === test[5]) {
+            console.log('win 4-6');
+        } else if (test[6] !== null && test[6] === test[7] && test[7] === test[8]) {
+            console.log('win 7-9');
+        } else if (test[0] !== null && test[0] === test[3] && test[3] === test[6]) {
+            // test columns
+            console.log('win 1,4,7');
+        } else if (test[1] !== null && test[1] === test[4] && test[4] === test[7]) {
+            console.log('win 2,5,8');
+        } else if (test[2] !== null && test[2] === test[5] && test[5] === test[8]) {
+            console.log('win 3,6,9');
+        } else if (test[0] !== null && test[0] === test[4] && test[4] === test[8]) {
+            // test diagonals
+            console.log('win 1,5,9');
+        } else if (test[2] !== null && test[2] === test[4] && test[4] === test[6]) {
+            console.log('win 3,5,7');
+        } else {
+            console.log('no win');
+        }
+    }
 
 /*
     // Play round
@@ -104,18 +130,17 @@ const playGame = () => {
     } else if (test[2] !== null && test[2] === test[4] && test[4] === test[6]) {
         console.log('win 3,5,7');
     } else {
-        // switch player
-        // test for no win
+        console.log('no win');
     }
 */
     // gameboard.log()
-    return { board, getPlayer, getTurn, switchTurn, getRound };
+    return { board, getPlayer, getTurn, switchTurn, getRound, checkWin };
 }
 
 const game = playGame();
 
 // round 1
-console.log(game.getRound())
+console.log(`round: ${game.getRound()}`);
 console.log(game.getTurn())
 
 game.board.markSquare(0, game.getPlayer().makeMark())
@@ -123,11 +148,13 @@ game.switchTurn()
 console.log(game.getTurn())
 
 game.board.markSquare(1, game.getPlayer().makeMark())
-game.switchTurn()
 game.board.log()
+game.checkWin();
+
+game.switchTurn()
 
 // round 2
-console.log(game.getRound())
+console.log(`round: ${game.getRound()}`);
 console.log(game.getTurn())
 
 game.board.markSquare(2, game.getPlayer().makeMark())
@@ -135,11 +162,13 @@ game.switchTurn()
 console.log(game.getTurn())
 
 game.board.markSquare(3, game.getPlayer().makeMark())
-game.switchTurn()
 game.board.log()
+game.checkWin();
+
+game.switchTurn()
 
 // round 3
-console.log(game.getRound())
+console.log(`round: ${game.getRound()}`);
 console.log(game.getTurn())
 
 game.board.markSquare(4, game.getPlayer().makeMark())
@@ -147,11 +176,13 @@ game.switchTurn()
 console.log(game.getTurn())
 
 game.board.markSquare(5, game.getPlayer().makeMark())
-game.switchTurn()
 game.board.log()
+game.checkWin();
+
+game.switchTurn()
 
 // round 4
-console.log(game.getRound())
+console.log(`round: ${game.getRound()}`);
 console.log(game.getTurn())
 
 game.board.markSquare(6, game.getPlayer().makeMark())
@@ -159,5 +190,7 @@ game.switchTurn()
 console.log(game.getTurn())
 
 game.board.markSquare(7, game.getPlayer().makeMark())
-game.switchTurn()
 game.board.log()
+game.checkWin();
+
+game.switchTurn()

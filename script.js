@@ -16,12 +16,8 @@ const createBoard = (() => {
     }
 
     // Initialize gameboard
-    initBoard();
-
-    // TEMP method to log to console
-    const log = () => console.log(board);
-    
-    return { initBoard, getBoard, markSquare, log };
+    initBoard();    
+    return { initBoard, getBoard, markSquare };
 })()
 
 // Store players in objects
@@ -112,6 +108,7 @@ const playGame = () => {
             // board.initBoard();
         } else {
             console.log('no win');
+            switchTurn();
         }
     }
 
@@ -130,7 +127,10 @@ const playGame = () => {
     } while (round < 5)
 
 */
-    return { board, getPlayer, getTurn, switchTurn, getRound, incRound, checkWin };
+    // TEMP method to log to console
+    const log = () => console.log(gameboard.getBoard());
+
+    return { board, getPlayer, getTurn, getRound, checkWin, log };
 }
 
 const game = playGame();
@@ -141,14 +141,13 @@ console.log(game.getTurn())
 
 game.board.markSquare(0, game.getPlayer().makeMark())
 game.checkWin();
-game.switchTurn()
+
 console.log(game.getTurn())
 
 game.board.markSquare(1, game.getPlayer().makeMark())
 game.checkWin();
-game.board.log()
+game.log()
 
-game.switchTurn()
 
 // round 2
 console.log(`round: ${game.getRound()}`);
@@ -156,14 +155,13 @@ console.log(game.getTurn())
 
 game.board.markSquare(2, game.getPlayer().makeMark())
 game.checkWin();
-game.switchTurn()
+
 console.log(game.getTurn())
 
 game.board.markSquare(3, game.getPlayer().makeMark())
 game.checkWin();
-game.board.log()
+game.log()
 
-game.switchTurn()
 
 // round 3
 console.log(`round: ${game.getRound()}`);
@@ -171,14 +169,13 @@ console.log(game.getTurn())
 
 game.board.markSquare(4, game.getPlayer().makeMark())
 game.checkWin();
-game.switchTurn()
+
 console.log(game.getTurn())
 
 game.board.markSquare(5, game.getPlayer().makeMark())
 game.checkWin();
-game.board.log()
+game.log()
 
-game.switchTurn()
 
 // round 4
 console.log(`round: ${game.getRound()}`);
@@ -186,4 +183,4 @@ console.log(game.getTurn())
 
 game.board.markSquare(6, game.getPlayer().makeMark())
 game.checkWin();
-game.board.log()
+game.log()

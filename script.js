@@ -61,9 +61,11 @@ const playGame = () => {
         if (getTurn() === `${player1.getName()}'s turn`) {
             playerTurn = `${player2.getName()}'s turn`;
         } else {
-            // Round is over 
-            playerTurn = `${player1.getName()}'s turn`;
+            // Round is over
             incRound();
+            log();
+            console.log(`Round: ${getRound()}`);
+            playerTurn = `${player1.getName()}'s turn`;
         }
     }
     const getRound = () => round;
@@ -113,33 +115,41 @@ const playGame = () => {
             // board.initBoard();
         } else if (test[2] !== null && test[2] === test[4] && test[4] === test[6]) {
             console.log(`${player.getName()} wins 3,5,7`);
+            log();
+            // Increment score
             player.incScore();
             console.log(`${player.getName()}'s score: ${player.getScore()}`);
-            // board.initBoard();
+            // Reset gameboard and round
+            board.initBoard();
+            round = 1;
+            console.log(`Round: ${getRound()}`);
+            // Switch turns if not player 1
+            if (getTurn() === `${player2.getName()}'s turn`) switchTurn();
         } else {
             console.log('No win');
-            switchTurn();
+            return false;
         }
     }
     const takeTurn = (sqNum) => {
         console.log(getTurn())
+        // If square is empty
         if (!board.getBoard()[sqNum]) {
-            board.markSquare(0, getPlayer().makeMark());
-            checkWin();
+            board.markSquare(sqNum, getPlayer().makeMark());
+            // No winner? Switch turns
+            if (checkWin() === false) switchTurn();
         } else {
-            console.log("choose a different square");
+            console.log("Choose a different square");
         }
-
-        log();
     }
-
     // TEMP method to log to console
-    const log = () => console.log(gameboard.getBoard());
+    const log = () => console.log(board.getBoard());
 
-    return { board, getPlayer, getTurn, getRound, checkWin, takeTurn, log };
+    console.log(`Round: ${getRound()}`);
+
+    return { board, getRound, getPlayer, getTurn, takeTurn, log };
 }
 
-const game = playGame();
+const game = playGame()
 
 game.takeTurn(0)
 game.takeTurn(1)
@@ -147,4 +157,13 @@ game.takeTurn(2)
 game.takeTurn(3)
 game.takeTurn(4)
 game.takeTurn(5)
+game.takeTurn(6)
+
+game.takeTurn(0)
+game.takeTurn(1)
+game.takeTurn(2)
+game.takeTurn(3)
+game.takeTurn(4)
 game.takeTurn(5)
+game.takeTurn(6)
+

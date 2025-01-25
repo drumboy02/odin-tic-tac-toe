@@ -117,8 +117,19 @@ const playGame = () => {
             console.log(`${player.getName()}'s score: ${player.getScore()}`);
             // board.initBoard();
         } else {
-            console.log('no win');
+            console.log('No win');
             switchTurn();
+        }
+    }
+    const takeTurn = (sqNum) => {
+        if (!sqNum) {
+            console.log(`Round: ${getRound()}`);
+            console.log(getTurn());
+            gameboard.markSquare(sqNum, getPlayer().makeMark());
+            log();
+            checkWin();
+        } else {
+            console.log("choose a different square");
         }
     }
 
@@ -140,13 +151,19 @@ const playGame = () => {
     // TEMP method to log to console
     const log = () => console.log(gameboard.getBoard());
 
-    return { board, getPlayer, getTurn, getRound, checkWin, log };
+    return { board, getPlayer, getTurn, getRound, checkWin, takeTurn, log };
 }
 
 const game = playGame();
 
-// round 1
-console.log(`round: ${game.getRound()}`);
+game.takeTurn(4)
+game.takeTurn(8)
+game.takeTurn(2)
+game.takeTurn(2)
+
+/*
+// Round 1
+console.log(`Round: ${game.getRound()}`);
 
 console.log(game.getTurn())
 game.board.markSquare(0, game.getPlayer().makeMark())
@@ -158,8 +175,8 @@ game.checkWin();
 
 game.log()
 
-// round 2
-console.log(`round: ${game.getRound()}`);
+// Round 2
+console.log(`Round: ${game.getRound()}`);
 
 console.log(game.getTurn())
 game.board.markSquare(2, game.getPlayer().makeMark())
@@ -171,8 +188,8 @@ game.checkWin();
 
 game.log()
 
-// round 3
-console.log(`round: ${game.getRound()}`);
+// Round 3
+console.log(`Round: ${game.getRound()}`);
 
 console.log(game.getTurn())
 game.board.markSquare(4, game.getPlayer().makeMark())
@@ -184,11 +201,12 @@ game.checkWin();
 
 game.log()
 
-// round 4
-console.log(`round: ${game.getRound()}`);
+// Round 4
+console.log(`Round: ${game.getRound()}`);
 
 console.log(game.getTurn())
 game.board.markSquare(6, game.getPlayer().makeMark())
 game.checkWin();
 
 game.log()
+*/

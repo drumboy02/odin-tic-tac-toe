@@ -12,7 +12,7 @@ const createBoard = (() => {
     }
     const getBoard = () => board;
     const markSquare = (square, mark) => {
-        board[square] = mark;
+            board[square] = mark;
     }
 
     // Initialize gameboard
@@ -122,32 +122,17 @@ const playGame = () => {
         }
     }
     const takeTurn = (sqNum) => {
-        if (!sqNum) {
-            console.log(`Round: ${getRound()}`);
-            console.log(getTurn());
-            gameboard.markSquare(sqNum, getPlayer().makeMark());
-            log();
+        console.log(getTurn())
+        if (!board.getBoard()[sqNum]) {
+            board.markSquare(0, getPlayer().makeMark());
             checkWin();
         } else {
             console.log("choose a different square");
         }
+
+        log();
     }
 
-/*
-    // Play round
-    do {
-        console.log(`round: ${round + 1}`);
-        console.log(playerTurn);
-        // mark square
-        // test 
-        playerTurn = `${player2.getName()}'s turn`;
-        console.log(playerTurn);
-        // mark square
-        // test
-        round += 1;
-    } while (round < 5)
-
-*/
     // TEMP method to log to console
     const log = () => console.log(gameboard.getBoard());
 
@@ -156,57 +141,10 @@ const playGame = () => {
 
 const game = playGame();
 
+game.takeTurn(0)
+game.takeTurn(1)
+game.takeTurn(2)
+game.takeTurn(3)
 game.takeTurn(4)
-game.takeTurn(8)
-game.takeTurn(2)
-game.takeTurn(2)
-
-/*
-// Round 1
-console.log(`Round: ${game.getRound()}`);
-
-console.log(game.getTurn())
-game.board.markSquare(0, game.getPlayer().makeMark())
-game.checkWin();
-
-console.log(game.getTurn())
-game.board.markSquare(1, game.getPlayer().makeMark())
-game.checkWin();
-
-game.log()
-
-// Round 2
-console.log(`Round: ${game.getRound()}`);
-
-console.log(game.getTurn())
-game.board.markSquare(2, game.getPlayer().makeMark())
-game.checkWin();
-
-console.log(game.getTurn())
-game.board.markSquare(3, game.getPlayer().makeMark())
-game.checkWin();
-
-game.log()
-
-// Round 3
-console.log(`Round: ${game.getRound()}`);
-
-console.log(game.getTurn())
-game.board.markSquare(4, game.getPlayer().makeMark())
-game.checkWin();
-
-console.log(game.getTurn())
-game.board.markSquare(5, game.getPlayer().makeMark())
-game.checkWin();
-
-game.log()
-
-// Round 4
-console.log(`Round: ${game.getRound()}`);
-
-console.log(game.getTurn())
-game.board.markSquare(6, game.getPlayer().makeMark())
-game.checkWin();
-
-game.log()
-*/
+game.takeTurn(5)
+game.takeTurn(5)

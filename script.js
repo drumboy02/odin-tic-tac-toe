@@ -195,20 +195,28 @@ const screenController = () => {
     let player = game.getPlayer();
     let round = game.getRound();
 
-    // Initialize DOM elements to render
     const main = document.querySelector('main');
 
+    // Define methods
     const createSquares = () => {
         const boardDiv = main.appendChild(document.createElement('div'));
         boardDiv.classList.add('gameboard');
 
-        // create squares on board
+        // Create squares on board
         for (let i = 0; i < 9; i++) {
             let button = document.createElement('button');
-            button.setAttribute('id', `$square-${i}`);
+            button.setAttribute('id', `square-${i}`);
             button.classList.add('square');
-            button.innerText = 'X';
+            // button.innerText = 'X';
             boardDiv.appendChild(button);
+
+            // Add even listeners
+            let square = document.querySelector(`#square-${i}`);
+            square.addEventListener('click', () => {
+                console.log(`square-${i} clicked`);
+                console.log(`${player.makeMark()}`)
+                square.innerText = player.makeMark();
+            })
         }
     }
 
@@ -223,8 +231,8 @@ const screenController = () => {
     return { createSquares };
 }
 
-const game = playGame()
-const screen = screenController()
+const game = playGame();
+const screen = screenController();
 
 /*
 game.takeTurn(2);

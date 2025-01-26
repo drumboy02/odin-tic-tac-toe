@@ -1,5 +1,3 @@
-const main = document.querySelector('main');
-
 // Store gameboard array in object
 const createBoard = (() => {
     // Initialize private variables
@@ -62,7 +60,6 @@ const playGame = () => {
     const getRound = () => round;
     const incRound = () => { round += 1 };
 
-    // Game logic
     const switchTurn = () => {
         if (getTurn() === `${player1.getName()}'s turn`) {
             playerTurn = `${player2.getName()}'s turn`;
@@ -76,8 +73,8 @@ const playGame = () => {
 
     const checkWin = () => {
         // Test for win condition
-        let test = board.getBoard();
-        let player = getPlayer();
+        const test = board.getBoard();
+        const player = getPlayer();
 
         const testRows = () => {
             if (test[0] !== null && test[0] === test[1] && test[1] === test[2]) {
@@ -159,7 +156,7 @@ const playGame = () => {
 
     const takeTurn = ((sqNum) => {
         console.log(`${getTurn()} square: ${sqNum}`)
-        let player = getPlayer();
+        const player = getPlayer();
 
         // If square is empty
         if (!board.getBoard()[sqNum]) {
@@ -186,16 +183,47 @@ const playGame = () => {
     // TEMP method to log to console
     const log = () => console.log(board.getBoard());
 
-    console.log(`Round: ${getRound()}`);
+    //console.log(`Round: ${getRound()}`);
 
     return { board, getRound, getPlayer, getTurn, takeTurn, log };
 }
 
-const game = playGame()
+const screenController = () => {
+    // Initialize variables
+    const game = playGame();
+    const board = game.board.getBoard();
+    let player = game.getPlayer();
+    let round = game.getRound();
 
+    // Initialize DOM elements to render
+    const main = document.querySelector('main');
+    const boardDiv = main.appendChild(document.createElement('div'));
+    boardDiv.classList.add('gameboard');
+
+    // create squares on board
+    for (let i = 0; i < 9; i++) {
+        let button = document.createElement('button');
+        button.setAttribute('id', `$square-${i}`);
+        button.classList.add('square');
+        button.innerText = 'X';
+        boardDiv.appendChild(button);
+    }
+
+    /*
+    console.log(board);
+    console.log(player.getName());
+    console.log(`${player.getName()}'s score: ${player.getScore()}`);
+    console.log(`round: ${round}`);
+    */
+}
+
+const game = playGame()
+screenController();
+/*
 game.takeTurn(2);
 game.takeTurn(0);
 game.takeTurn(3);
+game.takeTurn(1)
 game.takeTurn(1);
 game.takeTurn(4);
 game.takeTurn(5);
@@ -213,3 +241,4 @@ game.takeTurn(5);
 game.takeTurn(6);
 
 game.takeTurn(4)
+*/

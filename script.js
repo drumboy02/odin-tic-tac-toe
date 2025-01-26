@@ -30,9 +30,10 @@ const createPlayer = (playerName, playerMark) => {
     const getName = () => name;
     const getScore = () => score;
     const incScore = () => { score += 1 };
+    const resetScore = () => { score = 0 };
     const makeMark = () => mark;
     
-    return { getName, getScore, incScore, makeMark };
+    return { getName, getScore, incScore, resetScore, makeMark };
 }
 
 // Game logic
@@ -155,7 +156,7 @@ const playGame = () => {
     }
 
     const takeTurn = ((sqNum) => {
-        console.log(`${getTurn()} square: ${sqNum}`)
+        console.log(`${getTurn()} square: ${sqNum + 1}`)
         const player = getPlayer();
 
         // If square is empty
@@ -170,6 +171,8 @@ const playGame = () => {
                 if (score === 3) {
                     console.log(`${player.getName()}'s score: ${score}`);
                     console.log(`${player.getName()} wins the game!`);
+                    player1.resetScore();
+                    player2.resetScore();
                 } else {
                     // console.log(`${player.getName()}'s score: ${score}`);
                     console.log(`Round: ${getRound()}`);
@@ -205,7 +208,7 @@ const screenController = () => {
             let button = document.createElement('button');
             button.setAttribute('id', `square-${i}`);
             button.classList.add('square');
-            // button.innerText = 'X';
+
             boardDiv.appendChild(button);
 
             // Add even listeners
@@ -219,6 +222,7 @@ const screenController = () => {
         }
     }
 
+    // Render board array to screen
     const renderBoard = () => {
         let squares = document.querySelectorAll('.square');
         squares.forEach((square, index) => {
@@ -226,21 +230,20 @@ const screenController = () => {
         });
     }
 
-    createSquares();
-    /*
-    console.log(board);
-    console.log(player.getName());
-    console.log(`${player.getName()}'s score: ${player.getScore()}`);
-    console.log(`round: ${round}`);
-    */
+    // Check for existing gameboard
+    if (!document.querySelector('.gameboard')) {
+        createSquares()
+    } else {
+        return;
+    }
 
     return { createSquares };
 }
 
-// const game = playGame();
-const screen = screenController();
+screenController();
 
 /*
+const game = playGame();
 game.takeTurn(0);
 game.takeTurn(1);
 game.takeTurn(2);

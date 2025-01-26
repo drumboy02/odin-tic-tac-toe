@@ -42,6 +42,8 @@ const playGame = () => {
     const gameboard = createBoard;
     const player1 = createPlayer('Player 1', 'X');
     const player2 = createPlayer('Player 2', 'O');
+    const players = [player1, player2];
+
     let round = 1;
     let playerTurn = `${player1.getName()}'s turn`;
 
@@ -169,7 +171,7 @@ const playGame = () => {
                 let score = player.getScore();
                 
                 if (score === 3) {
-                    console.log(`${player.getName()}'s score: ${score}`);
+                    // console.log(`${player.getName()}'s score: ${score}`);
                     console.log(`${player.getName()} wins the game!`);
                     player1.resetScore();
                     player2.resetScore();
@@ -182,19 +184,23 @@ const playGame = () => {
             console.log("Choose a different square");
         }
     })
+    const passPlayers = () => players;
 
     // TEMP method to log to console
     const log = () => console.log(board.getBoard());
 
     //console.log(`Round: ${getRound()}`);
 
-    return { board, getRound, getPlayer, getTurn, takeTurn, log };
+    return { board, getRound, getPlayer, getTurn, takeTurn, passPlayers, log };
 }
 
 const screenController = () => {
     // Initialize variables
     const game = playGame();
     const board = game.board.getBoard();
+    const players = game.passPlayers();
+    // console.log(`player1: ${players[0].getScore()}`);
+    // console.log(`player2: ${players[1].getScore()}`);
 
     const main = document.querySelector('main');
 
@@ -228,6 +234,14 @@ const screenController = () => {
         squares.forEach((square, index) => {
             square.innerText = board[index];
         });
+
+        renderScores();
+    }
+
+    const renderScores = () => {
+        console.log(`round: ${game.getRound()}`);
+        console.log(`player1: ${players[0].getScore()}`);
+        console.log(`player2: ${players[1].getScore()}`);
     }
 
     // Check for existing gameboard

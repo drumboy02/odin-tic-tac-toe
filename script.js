@@ -192,8 +192,6 @@ const screenController = () => {
     // Initialize variables
     const game = playGame();
     const board = game.board.getBoard();
-    let player = game.getPlayer();
-    let round = game.getRound();
 
     const main = document.querySelector('main');
 
@@ -214,10 +212,18 @@ const screenController = () => {
             let square = document.querySelector(`#square-${i}`);
             square.addEventListener('click', () => {
                 console.log(`square-${i} clicked`);
-                console.log(`${player.makeMark()}`)
-                square.innerText = player.makeMark();
+
+                game.takeTurn(i);
+                renderBoard();
             })
         }
+    }
+
+    const renderBoard = () => {
+        let squares = document.querySelectorAll('.square');
+        squares.forEach((square, index) => {
+            square.innerText = board[index];
+        });
     }
 
     createSquares();
@@ -231,29 +237,31 @@ const screenController = () => {
     return { createSquares };
 }
 
-const game = playGame();
+// const game = playGame();
 const screen = screenController();
 
 /*
-game.takeTurn(2);
-game.takeTurn(0);
-game.takeTurn(3);
-game.takeTurn(1)
-game.takeTurn(1);
-game.takeTurn(4);
-game.takeTurn(5);
-game.takeTurn(7);
-game.takeTurn(6);
-game.takeTurn(8);
-//console.log(game.board.getBoard())
-
 game.takeTurn(0);
 game.takeTurn(1);
 game.takeTurn(2);
-game.takeTurn(3);
+game.takeTurn(3)
 game.takeTurn(4);
 game.takeTurn(5);
 game.takeTurn(6);
 
-game.takeTurn(4)
+game.takeTurn(0);
+game.takeTurn(1);
+game.takeTurn(2);
+game.takeTurn(3)
+game.takeTurn(4);
+game.takeTurn(5);
+game.takeTurn(6);
+
+game.takeTurn(0);
+game.takeTurn(1);
+game.takeTurn(2);
+game.takeTurn(3)
+game.takeTurn(4);
+game.takeTurn(5);
+game.takeTurn(6);
 */

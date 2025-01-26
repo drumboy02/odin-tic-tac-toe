@@ -231,11 +231,7 @@ const screenController = () => {
     }
 
     // Check for existing gameboard
-    if (!document.querySelector('.gameboard')) {
-        createSquares()
-    } else {
-        return;
-    }
+   document.querySelector('.gameboard') || createSquares();
 
     return { createSquares };
 }

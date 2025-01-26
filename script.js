@@ -69,7 +69,6 @@ const playGame = () => {
         } else {
             // Round is over
             incRound();
-            log();
             console.log(`Round: ${getRound()}`);
             playerTurn = `${player1.getName()}'s turn`;
         }
@@ -122,91 +121,63 @@ const playGame = () => {
             }
         }
 
+        const resetGame = () => {
+            // Reset gameboard and round
+            board.initBoard();
+            round = 1;
+
+            // Switch turns if not player 1
+            if (getTurn() === `${player2.getName()}'s turn`) {
+                playerTurn = `${player1.getName()}'s turn`;
+            } 
+        }
+
+        // If there's a winner
         if (testRows() || testColumns() || testDiagonals()) {
             log();
 
             // Increment score
             player.incScore();
             console.log(`${player.getName()}'s score: ${player.getScore()}`);
+            resetGame();
 
-            // Reset gameboard and round
-            board.initBoard();
-            round = 1;
-            console.log(`Round: ${getRound()}`);
-
-            // Switch turns if not player 1
-            if (getTurn() === `${player2.getName()}'s turn`) switchTurn();
         } else {
-            console.log('No win');
-            return false;
-        }
+            // Test for no win scenario
+            let testNoWinner = test.filter(v => v !== null).length;
 
-        /*
-        if (test[0] !== null && test[0] === test[1] && test[1] === test[2]) {
-            // Test rows
-            console.log(`${player.getName()} wins 1-3`);
-            player.incScore();
-            console.log(`${player.getName()}'s score: ${player.getScore()}`);
-            // board.initBoard();
-        } else if (test[3] !== null && test[3] === test[4] && test[4] === test[5]) {
-            console.log(`${player.getName()} wins 4-6`);
-            player.incScore();
-            console.log(`${player.getName()}'s score: ${player.getScore()}`);
-            // board.initBoard();
-        } else if (test[6] !== null && test[6] === test[7] && test[7] === test[8]) {
-            console.log(`${player.getName()} wins 7-9`);
-            player.incScore();
-            console.log(`${player.getName()}'s score: ${player.getScore()}`);
-            // board.initBoard();
-        } else if (test[0] !== null && test[0] === test[3] && test[3] === test[6]) {
-            // Test columns
-            console.log(`${player.getName()} wins 1,4,7`);
-            player.incScore();
-            console.log(`${player.getName()}'s score: ${player.getScore()}`);
-            // board.initBoard();
-        } else if (test[1] !== null && test[1] === test[4] && test[4] === test[7]) {
-            console.log(`${player.getName()} wins 2,5,8`);
-            player.incScore();
-            console.log(`${player.getName()}'s score: ${player.getScore()}`);
-            // board.initBoard();
-        } else if (test[2] !== null && test[2] === test[5] && test[5] === test[8]) {
-            console.log(`${player.getName()} wins 3,6,9`);
-            player.incScore();
-            console.log(`${player.getName()}'s score: ${player.getScore()}`);
-            // board.initBoard();
-        } else if (test[0] !== null && test[0] === test[4] && test[4] === test[8]) {
-            // Test diagonals
-            console.log(`${player.getName()} wins 1,5,9`);
-            player.incScore();
-            console.log(`${player.getName()}'s score: ${player.getScore()}`);
-            // board.initBoard();
-        } else if (test[2] !== null && test[2] === test[4] && test[4] === test[6]) {
-            console.log(`${player.getName()} wins 3,5,7`);
-            log();
-            // Increment score
-            player.incScore();
-            console.log(`${player.getName()}'s score: ${player.getScore()}`);
-            // Reset gameboard and round
-            board.initBoard();
-            round = 1;
-            console.log(`Round: ${getRound()}`);
-            // Switch turns if not player 1
-            if (getTurn() === `${player2.getName()}'s turn`) switchTurn();
-        } else {
-            console.log('No win');
-            return false;
+            if (testNoWinner === 9) {
+                log();
+                console.log('No winner');
+                resetGame();
+            } else {
+                log()
+                console.log(`Next player's turn`);
+                return false;
+            }
         }
-        */
-
     }
 
     const takeTurn = ((sqNum) => {
-        console.log(getTurn())
+        console.log(`${getTurn()} square: ${sqNum}`)
+        let player = getPlayer();
+
         // If square is empty
         if (!board.getBoard()[sqNum]) {
-            board.markSquare(sqNum, getPlayer().makeMark());
-            // No winner? Switch turns
-            if (checkWin() === false) switchTurn();
+            board.markSquare(sqNum, player.makeMark());
+            if (checkWin() === false) {
+                switchTurn();
+            } else {
+                // Check first to 3
+                let score = player.getScore();
+                
+                if (score === 3) {
+                    console.log(`${player.getName()}'s score: ${score}`);
+                    console.log(`${player.getName()} wins the game!`);
+                } else {
+                    // console.log(`${player.getName()}'s score: ${score}`);
+                    console.log(`Round: ${getRound()}`);
+                }
+            }
         } else {
             console.log("Choose a different square");
         }
@@ -222,8 +193,23 @@ const playGame = () => {
 
 const game = playGame()
 
-game.takeTurn(0)
-game.takeTurn(2)
+game.takeTurn(2);
+game.takeTurn(0);
+game.takeTurn(3);
+game.takeTurn(1);
+game.takeTurn(4);
+game.takeTurn(5);
+game.takeTurn(7);
+game.takeTurn(6);
+game.takeTurn(8);
+//console.log(game.board.getBoard())
+
+game.takeTurn(0);
+game.takeTurn(1);
+game.takeTurn(2);
+game.takeTurn(3);
+game.takeTurn(4);
+game.takeTurn(5);
+game.takeTurn(6);
+
 game.takeTurn(4)
-game.takeTurn(1)
-game.takeTurn(8)

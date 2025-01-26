@@ -197,28 +197,35 @@ const screenController = () => {
 
     // Initialize DOM elements to render
     const main = document.querySelector('main');
-    const boardDiv = main.appendChild(document.createElement('div'));
-    boardDiv.classList.add('gameboard');
 
-    // create squares on board
-    for (let i = 0; i < 9; i++) {
-        let button = document.createElement('button');
-        button.setAttribute('id', `$square-${i}`);
-        button.classList.add('square');
-        button.innerText = 'X';
-        boardDiv.appendChild(button);
+    const createSquares = () => {
+        const boardDiv = main.appendChild(document.createElement('div'));
+        boardDiv.classList.add('gameboard');
+
+        // create squares on board
+        for (let i = 0; i < 9; i++) {
+            let button = document.createElement('button');
+            button.setAttribute('id', `$square-${i}`);
+            button.classList.add('square');
+            button.innerText = 'X';
+            boardDiv.appendChild(button);
+        }
     }
 
+    createSquares();
     /*
     console.log(board);
     console.log(player.getName());
     console.log(`${player.getName()}'s score: ${player.getScore()}`);
     console.log(`round: ${round}`);
     */
+
+    return { createSquares };
 }
 
 const game = playGame()
-screenController();
+const screen = screenController()
+
 /*
 game.takeTurn(2);
 game.takeTurn(0);

@@ -238,15 +238,27 @@ const screenController = () => {
         renderScores();
     }
 
-    // TODO method to generate scoreboard
+    // Generate scoreboard
     const createScores = () => {
         const scoresDiv = main.appendChild(document.createElement('div'));
         scoresDiv.classList.add('scores');
-        scoresDiv.innerText = 'ScoreDiv';
+
+        scoresDiv.appendChild(document.createElement('p')).classList.add('round');
+        document.querySelector('.round').textContent = `Round: ${game.getRound()}`;
+
+        scoresDiv.appendChild(document.createElement('p')).classList.add('player1-score');
+        document.querySelector('.player1-score').textContent = `Player 1 Score: ${players[0].getScore()}`;
+        scoresDiv.appendChild(document.createElement('p')).classList.add('player2-score');
+        document.querySelector('.player2-score').textContent = `Player 2 Score: ${players[1].getScore()}`;
+
     }
 
     // Render scores/round to screen
     const renderScores = () => {
+        document.querySelector('.round').textContent = `Round: ${game.getRound()}`;
+        document.querySelector('.player1-score').textContent = `Player 1 Score: ${players[0].getScore()}`;
+        document.querySelector('.player2-score').textContent = `Player 2 Score: ${players[1].getScore()}`;
+
         console.log(`round: ${game.getRound()}`);
         console.log(`player1: ${players[0].getScore()}`);
         console.log(`player2: ${players[1].getScore()}`);

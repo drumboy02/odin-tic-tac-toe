@@ -47,7 +47,11 @@ main {
 
 .scores {
     margin: 12px auto;
+    padding: 2px;
     border: 2px solid #000;
     max-width: 70vh;
     height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

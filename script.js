@@ -217,7 +217,7 @@ const screenController = () => {
 
             boardDiv.appendChild(button);
 
-            // Add even listeners
+            // Add event listeners
             let square = document.querySelector(`#square-${i}`);
             square.addEventListener('click', () => {
                 console.log(`square-${i} clicked`);
@@ -238,6 +238,14 @@ const screenController = () => {
         renderScores();
     }
 
+    // TODO method to generate scoreboard
+    const createScores = () => {
+        const scoresDiv = main.appendChild(document.createElement('div'));
+        scoresDiv.classList.add('scores');
+        scoresDiv.innerText = 'ScoreDiv';
+    }
+
+    // Render scores/round to screen
     const renderScores = () => {
         console.log(`round: ${game.getRound()}`);
         console.log(`player1: ${players[0].getScore()}`);
@@ -245,7 +253,7 @@ const screenController = () => {
     }
 
     // Check for existing gameboard
-   document.querySelector('.gameboard') || createSquares();
+    document.querySelector('.gameboard') || createSquares(), createScores();
 
     return { createSquares };
 }

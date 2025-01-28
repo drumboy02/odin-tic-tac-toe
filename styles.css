@@ -11,7 +11,7 @@
 body {
     background-color: #48f;
     text-align: center;
-    margin-top: 1rem;
+    margin-top: 0.4rem;
 }
 
 main {
@@ -21,20 +21,20 @@ main {
 .gameboard {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    min-height: 70vh;
     max-width: 70vh;
     margin: auto;
-    border: 16px outset #f84;
+    border: calc(10vh / 2) ridge #f84;
     outline: 2px solid #222;
     border-radius: 4px;
 }
 
 .square {
-    border: 4px solid #222;
+    border: 7px solid #222;
+    outline: 1px solid #444;
     font-size: calc(1.4rem + 10vh);
     font-weight: 600;
     color: #f84;
-    height: calc(70vh / 3);
+    height: calc(65vh / 3);
 }
 
 .square:hover {
@@ -43,4 +43,11 @@ main {
 
 .square:active {
     background-color: #ff4;
+}
+
+.scores {
+    margin: 12px auto;
+    border: 2px solid #000;
+    max-width: 70vh;
+    height: 10vh;
 }

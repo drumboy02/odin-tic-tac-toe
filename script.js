@@ -243,34 +243,39 @@ const screenController = () => {
         const scoresDiv = main.appendChild(document.createElement('div'));
         scoresDiv.classList.add('scores');
 
-        scoresDiv.appendChild(document.createElement('p')).classList.add('round');
-        document.querySelector('.round').textContent = `Round: ${game.getRound()}`;
-        scoresDiv.appendChild(document.createElement('p')).classList.add('turn');
+        // scoresDiv.appendChild(document.createElement('p'))
+        // .classList.add('round');
+        // document.querySelector('.round').textContent = `Round: ${game.getRound()}`;
+        scoresDiv.appendChild(document.createElement('p'))
+        .classList.add('turn');
         document.querySelector('.turn').textContent = game.getTurn();
 
         const playerScores = scoresDiv.appendChild(document.createElement('div'))
-        playerScores.appendChild(document.createElement('p')).classList.add('player1-score');
-        document.querySelector('.player1-score').textContent = `Player 1 Score: ${players[0].getScore()}`;
-        playerScores.appendChild(document.createElement('p')).classList.add('player2-score');
-        document.querySelector('.player2-score').textContent = `Player 2 Score: ${players[1].getScore()}`;
+        playerScores.classList.add('score-info');
 
+        playerScores.appendChild(document.createElement('p'))
+        .setAttribute('id', 'player1-score');
+        document.querySelector('#player1-score').textContent = `${players[0].getName()} Score: ${players[0].getScore()}`;
+        playerScores.appendChild(document.createElement('p'))
+        .setAttribute('id', 'player2-score');
+        document.querySelector('#player2-score').textContent = `${players[1].getName()} Score: ${players[1].getScore()}`;
     }
 
     // Render scores/round to screen
     const renderScores = () => {
-        document.querySelector('.round').textContent = `Round: ${game.getRound()}`;
+        // document.querySelector('.round').textContent = `Round: ${game.getRound()}`;
         document.querySelector('.turn').textContent = game.getTurn();
-        document.querySelector('.player1-score').textContent = `Player 1 Score: ${players[0].getScore()}`;
-        document.querySelector('.player2-score').textContent = `Player 2 Score: ${players[1].getScore()}`;
+        document.querySelector('#player1-score').textContent = `${players[0].getName()} Score: ${players[0].getScore()}`;
+        document.querySelector('#player2-score').textContent = `${players[1].getName()} Score: ${players[1].getScore()}`;
 
-        console.log(`round: ${game.getRound()}`);
+        // console.log(`round: ${game.getRound()}`);
         console.log(`turn: ${game.getTurn()}`);
         console.log(`player1: ${players[0].getScore()}`);
         console.log(`player2: ${players[1].getScore()}`);
     }
 
     // Check for existing gameboard
-    document.querySelector('.gameboard') || createSquares(), createScores();
+    document.querySelector('.gameboard') || (createSquares(), createScores());
 
     return { createSquares };
 }

@@ -59,7 +59,7 @@ main {
     align-items: center;
 }
 
-.turn,
+.info,
 .score-info {
     font-size: 1.2rem;
     background: #ff4;
@@ -67,4 +67,8 @@ main {
     padding: 1% 2%;
     border: 3px inset #555;
     border-radius: 2px;
+}
+
+dialog {
+    margin: auto;
 }

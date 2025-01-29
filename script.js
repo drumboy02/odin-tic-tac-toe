@@ -148,6 +148,10 @@ const playGame = () => {
             if (testNoWinner === 9) {
                 log();
                 console.log('No winner');
+                const setModal = document.querySelector('.win-modal')
+                setModal.textContent = `No winner`;
+                setModal.showModal();
+                setTimeout(() => { setModal.close(); }, "800");
                 resetGame();
             } else {
                 log()
@@ -171,7 +175,10 @@ const playGame = () => {
                 let score = player.getScore();
                 
                 if (score === 3) {
-                    // console.log(`${player.getName()}'s score: ${score}`);
+                    const setModal = document.querySelector('.win-modal')
+                    setModal.textContent = `${player.getName()} wins the game!`;
+                    setModal.showModal();
+                    setTimeout(() => { setModal.close(); }, "1000");
                     console.log(`${player.getName()} wins the game!`);
                     player1.resetScore();
                     player2.resetScore();
@@ -181,6 +188,8 @@ const playGame = () => {
                 }
             }
         } else {
+            document.querySelector('.diff-modal').showModal();
+            setTimeout(() => { document.querySelector('.diff-modal').close(); }, "500");
             console.log("Choose a different square");
         }
     })
@@ -247,8 +256,8 @@ const screenController = () => {
         // .classList.add('round');
         // document.querySelector('.round').textContent = `Round: ${game.getRound()}`;
         scoresDiv.appendChild(document.createElement('p'))
-        .classList.add('turn');
-        document.querySelector('.turn').textContent = game.getTurn();
+        .classList.add('info');
+        document.querySelector('.info').textContent = game.getTurn();
 
         const playerScores = scoresDiv.appendChild(document.createElement('div'))
         playerScores.classList.add('score-info');
@@ -264,7 +273,7 @@ const screenController = () => {
     // Render scores/round to screen
     const renderScores = () => {
         // document.querySelector('.round').textContent = `Round: ${game.getRound()}`;
-        document.querySelector('.turn').textContent = game.getTurn();
+        document.querySelector('.info').textContent = game.getTurn();
         document.querySelector('#player1-score').textContent = `${players[0].getName()} Score: ${players[0].getScore()}`;
         document.querySelector('#player2-score').textContent = `${players[1].getName()} Score: ${players[1].getScore()}`;
 
@@ -274,8 +283,18 @@ const screenController = () => {
         console.log(`player2: ${players[1].getScore()}`);
     }
 
+    const createModals = () => {
+        const winModal = main.appendChild(document.createElement('dialog'));
+        winModal.classList.add('win-modal');
+        const diffModal = main.appendChild(document.createElement('dialog'));
+        diffModal.classList.add('diff-modal');
+
+        winModal.textContent = "";
+        diffModal.textContent = "Choose a different square";
+    }
+
     // Check for existing gameboard
-    document.querySelector('.gameboard') || (createSquares(), createScores());
+    document.querySelector('.gameboard') || (createSquares(), createScores(), createModals());
 
     return { createSquares };
 }
